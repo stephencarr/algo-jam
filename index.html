@@ -80,6 +80,63 @@
         .playing {
             animation: pulse-play 1s ease-in-out infinite;
         }
+
+        .chat-container {
+            max-height: 300px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #9ca3af #e5e7eb;
+        }
+
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-container::-webkit-scrollbar-track {
+            background: #e5e7eb;
+            border-radius: 3px;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 3px;
+        }
+
+        .chat-message {
+            animation: slideIn 0.2s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-user {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .chat-assistant {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .chat-section {
+            display: none;
+            border-top: 2px solid #e5e7eb;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+
+        .chat-section.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -144,6 +201,9 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="track-label">Lead</h2>
                     <div class="flex gap-2">
+                        <button class="chat-toggle-btn control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="lead">
+                            💬 Chat
+                        </button>
                         <button class="mute-btn control-button bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg" data-track="lead">
                             Mute
                         </button>
@@ -152,7 +212,23 @@
                         </button>
                     </div>
                 </div>
-                <div id="leadPattern" class="grid grid-cols-16 gap-1"></div>
+                <div id="leadPattern" class="grid grid-cols-16 gap-1 mb-4"></div>
+
+                <!-- Chat Section -->
+                <div class="chat-section" data-track="lead">
+                    <div class="chat-container mb-3 p-3 bg-gray-50 rounded-lg" id="leadChat"></div>
+                    <div class="flex gap-2">
+                        <input
+                            type="text"
+                            class="track-chat-input flex-1 border-2 border-gray-300 rounded-lg px-3 py-2 text-sm"
+                            placeholder="e.g., 'make it more melodic' or 'add arpeggios'"
+                            data-track="lead"
+                        >
+                        <button class="track-chat-send control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="lead">
+                            Send
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Pad Track -->
@@ -160,6 +236,9 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="track-label">Pad (Chords)</h2>
                     <div class="flex gap-2">
+                        <button class="chat-toggle-btn control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="pad">
+                            💬 Chat
+                        </button>
                         <button class="mute-btn control-button bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg" data-track="pad">
                             Mute
                         </button>
@@ -168,7 +247,23 @@
                         </button>
                     </div>
                 </div>
-                <div id="padPattern" class="grid grid-cols-16 gap-1"></div>
+                <div id="padPattern" class="grid grid-cols-16 gap-1 mb-4"></div>
+
+                <!-- Chat Section -->
+                <div class="chat-section" data-track="pad">
+                    <div class="chat-container mb-3 p-3 bg-gray-50 rounded-lg" id="padChat"></div>
+                    <div class="flex gap-2">
+                        <input
+                            type="text"
+                            class="track-chat-input flex-1 border-2 border-gray-300 rounded-lg px-3 py-2 text-sm"
+                            placeholder="e.g., 'use minor chords' or 'add seventh chords'"
+                            data-track="pad"
+                        >
+                        <button class="track-chat-send control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="pad">
+                            Send
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Bass Track -->
@@ -176,6 +271,9 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="track-label">Bass</h2>
                     <div class="flex gap-2">
+                        <button class="chat-toggle-btn control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="bass">
+                            💬 Chat
+                        </button>
                         <button class="mute-btn control-button bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg" data-track="bass">
                             Mute
                         </button>
@@ -184,7 +282,23 @@
                         </button>
                     </div>
                 </div>
-                <div id="bassPattern" class="grid grid-cols-16 gap-1"></div>
+                <div id="bassPattern" class="grid grid-cols-16 gap-1 mb-4"></div>
+
+                <!-- Chat Section -->
+                <div class="chat-section" data-track="bass">
+                    <div class="chat-container mb-3 p-3 bg-gray-50 rounded-lg" id="bassChat"></div>
+                    <div class="flex gap-2">
+                        <input
+                            type="text"
+                            class="track-chat-input flex-1 border-2 border-gray-300 rounded-lg px-3 py-2 text-sm"
+                            placeholder="e.g., 'add more syncopation' or 'walking bass line'"
+                            data-track="bass"
+                        >
+                        <button class="track-chat-send control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="bass">
+                            Send
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Drums Track -->
@@ -192,6 +306,9 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="track-label">Drums</h2>
                     <div class="flex gap-2">
+                        <button class="chat-toggle-btn control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="drums">
+                            💬 Chat
+                        </button>
                         <button class="mute-btn control-button bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg" data-track="drums">
                             Mute
                         </button>
@@ -200,7 +317,23 @@
                         </button>
                     </div>
                 </div>
-                <div id="drumsPattern" class="grid grid-cols-16 gap-1"></div>
+                <div id="drumsPattern" class="grid grid-cols-16 gap-1 mb-4"></div>
+
+                <!-- Chat Section -->
+                <div class="chat-section" data-track="drums">
+                    <div class="chat-container mb-3 p-3 bg-gray-50 rounded-lg" id="drumsChat"></div>
+                    <div class="flex gap-2">
+                        <input
+                            type="text"
+                            class="track-chat-input flex-1 border-2 border-gray-300 rounded-lg px-3 py-2 text-sm"
+                            placeholder="e.g., 'four-on-the-floor' or 'add more hi-hat variations'"
+                            data-track="drums"
+                        >
+                        <button class="track-chat-send control-button bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" data-track="drums">
+                            Send
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -215,6 +348,14 @@
         let isPlaying = false;
         let currentStep = 0;
         let soloedTracks = new Set();
+
+        // Chat history for each track
+        let chatHistory = {
+            lead: [],
+            pad: [],
+            bass: [],
+            drums: []
+        };
 
         // Default patterns (16 steps)
         const defaultPatterns = {
@@ -586,6 +727,184 @@
             }
         }
 
+        // Add message to chat display
+        function addChatMessage(track, role, message) {
+            const chatContainer = document.getElementById(`${track}Chat`);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message mb-2 p-2 rounded-lg text-sm ${role === 'user' ? 'chat-user ml-8' : 'chat-assistant mr-8'}`;
+            messageDiv.textContent = message;
+            chatContainer.appendChild(messageDiv);
+
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Add to history
+            chatHistory[track].push({ role, message });
+        }
+
+        // Generate track-specific pattern from chat prompt
+        async function generateTrackPattern(track, prompt) {
+            addChatMessage(track, 'user', prompt);
+            addChatMessage(track, 'assistant', 'Generating pattern...');
+
+            try {
+                // Get current pattern for context
+                const currentPattern = patterns[track];
+
+                // Build context-aware prompt
+                let contextPrompt = `You are helping to live code a ${track} track in a music sequencer. `;
+                contextPrompt += `Current pattern: ${JSON.stringify(currentPattern)}. `;
+                contextPrompt += `User request: "${prompt}". `;
+
+                if (track === 'lead') {
+                    contextPrompt += 'Generate a 16-step lead melody pattern. Each step is either null or {note: "C5", velocity: 0.8}. ';
+                } else if (track === 'pad') {
+                    contextPrompt += 'Generate a 16-step chord progression pattern. Each step is either null or {notes: ["C4", "E4", "G4"], velocity: 0.5}. ';
+                } else if (track === 'bass') {
+                    contextPrompt += 'Generate a 16-step bass line pattern. Each step is either null or {note: "C2", velocity: 0.9}. ';
+                } else if (track === 'drums') {
+                    contextPrompt += 'Generate a 16-step drum pattern. Each step is either null or {sample: "kick"|"snare"|"hihat", velocity: 1.0}. ';
+                }
+
+                contextPrompt += 'Return ONLY a valid JSON array of 16 elements.';
+
+                // Note: Replace with actual Gemini API endpoint and key
+                const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': 'Bearer YOUR_API_KEY' // Add actual API key
+                    },
+                    body: JSON.stringify({
+                        prompt: contextPrompt
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Parse the response
+                let generatedPattern;
+                try {
+                    generatedPattern = JSON.parse(data.text || data.content);
+                } catch (e) {
+                    throw new Error('Invalid JSON response from API');
+                }
+
+                // Validate pattern length
+                if (!Array.isArray(generatedPattern) || generatedPattern.length !== 16) {
+                    throw new Error('Pattern must be an array of 16 elements');
+                }
+
+                // Update the track pattern
+                patterns[track] = generatedPattern;
+
+                // Re-render the pattern display
+                renderPatterns();
+
+                // Remove "Generating..." message
+                const chatContainer = document.getElementById(`${track}Chat`);
+                const messages = chatContainer.querySelectorAll('.chat-message');
+                if (messages.length > 0) {
+                    messages[messages.length - 1].remove();
+                }
+
+                addChatMessage(track, 'assistant', `Pattern updated! ${prompt}`);
+
+            } catch (error) {
+                console.error('Track pattern generation error:', error);
+
+                // Remove "Generating..." message
+                const chatContainer = document.getElementById(`${track}Chat`);
+                const messages = chatContainer.querySelectorAll('.chat-message');
+                if (messages.length > 0) {
+                    messages[messages.length - 1].remove();
+                }
+
+                // Demo mode: Apply simple transformations based on keywords
+                let response = applySimpleTransformation(track, prompt);
+                addChatMessage(track, 'assistant', `${response} (Demo mode - API not configured)`);
+                renderPatterns();
+            }
+        }
+
+        // Simple pattern transformations for demo mode
+        function applySimpleTransformation(track, prompt) {
+            const lower = prompt.toLowerCase();
+
+            if (lower.includes('clear') || lower.includes('empty') || lower.includes('silent')) {
+                patterns[track] = Array(16).fill(null);
+                return 'Cleared the pattern';
+            }
+
+            if (lower.includes('dense') || lower.includes('more notes') || lower.includes('fill')) {
+                // Add more notes to the pattern
+                if (track === 'lead') {
+                    patterns[track] = patterns[track].map((step, i) =>
+                        i % 2 === 0 ? { note: ['C5', 'D5', 'E5', 'G5', 'A5'][Math.floor(Math.random() * 5)], velocity: 0.7 + Math.random() * 0.2 } : step
+                    );
+                } else if (track === 'pad') {
+                    patterns[track] = patterns[track].map((step, i) =>
+                        i % 4 === 0 ? { notes: [['C4', 'E4', 'G4'], ['F4', 'A4', 'C5'], ['G4', 'B4', 'D5']][Math.floor(Math.random() * 3)], velocity: 0.5 } : step
+                    );
+                } else if (track === 'bass') {
+                    patterns[track] = patterns[track].map((step, i) =>
+                        i % 2 === 0 ? { note: ['C2', 'D2', 'E2', 'F2', 'G2'][Math.floor(Math.random() * 5)], velocity: 0.9 } : step
+                    );
+                } else if (track === 'drums') {
+                    patterns[track] = patterns[track].map((step, i) => {
+                        if (i % 4 === 0) return { sample: 'kick', velocity: 1.0 };
+                        if (i % 2 === 1) return { sample: 'hihat', velocity: 0.6 };
+                        if (i % 4 === 2) return { sample: 'snare', velocity: 0.9 };
+                        return step;
+                    });
+                }
+                return 'Made the pattern more dense';
+            }
+
+            if (lower.includes('sparse') || lower.includes('less notes') || lower.includes('minimal')) {
+                // Remove some notes
+                patterns[track] = patterns[track].map((step, i) =>
+                    i % 4 === 0 ? step : null
+                );
+                return 'Made the pattern more sparse';
+            }
+
+            if (lower.includes('random') || lower.includes('surprise')) {
+                // Randomize pattern
+                if (track === 'lead') {
+                    patterns[track] = Array(16).fill(null).map(() =>
+                        Math.random() > 0.5 ? { note: ['C5', 'D5', 'E5', 'G5', 'A5'][Math.floor(Math.random() * 5)], velocity: 0.7 + Math.random() * 0.2 } : null
+                    );
+                } else if (track === 'pad') {
+                    patterns[track] = Array(16).fill(null).map(() =>
+                        Math.random() > 0.7 ? { notes: [['C4', 'E4', 'G4'], ['F4', 'A4', 'C5'], ['G4', 'B4', 'D5']][Math.floor(Math.random() * 3)], velocity: 0.5 } : null
+                    );
+                } else if (track === 'bass') {
+                    patterns[track] = Array(16).fill(null).map(() =>
+                        Math.random() > 0.6 ? { note: ['C2', 'D2', 'E2', 'F2', 'G2'][Math.floor(Math.random() * 5)], velocity: 0.9 } : null
+                    );
+                } else if (track === 'drums') {
+                    const samples = ['kick', 'snare', 'hihat'];
+                    patterns[track] = Array(16).fill(null).map(() =>
+                        Math.random() > 0.4 ? { sample: samples[Math.floor(Math.random() * samples.length)], velocity: 0.6 + Math.random() * 0.4 } : null
+                    );
+                }
+                return 'Randomized the pattern';
+            }
+
+            if (lower.includes('reset') || lower.includes('default') || lower.includes('original')) {
+                patterns[track] = JSON.parse(JSON.stringify(defaultPatterns[track]));
+                return 'Reset to default pattern';
+            }
+
+            // Default response
+            return `Acknowledged: "${prompt}". Try keywords like 'dense', 'sparse', 'clear', 'random', or 'reset'`;
+        }
+
         // Initialize application
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize audio
@@ -671,6 +990,51 @@
                     }
 
                     updateMuteSolo();
+                });
+            });
+
+            // Chat toggle buttons
+            document.querySelectorAll('.chat-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const track = btn.dataset.track;
+                    const chatSection = document.querySelector(`.chat-section[data-track="${track}"]`);
+                    chatSection.classList.toggle('active');
+
+                    // Update button text
+                    if (chatSection.classList.contains('active')) {
+                        btn.textContent = '✕ Close';
+                        btn.classList.add('bg-gray-500', 'hover:bg-gray-600');
+                        btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    } else {
+                        btn.textContent = '💬 Chat';
+                        btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                        btn.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    }
+                });
+            });
+
+            // Chat send buttons
+            document.querySelectorAll('.track-chat-send').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const track = btn.dataset.track;
+                    const input = document.querySelector(`.track-chat-input[data-track="${track}"]`);
+                    const message = input.value.trim();
+
+                    if (message) {
+                        generateTrackPattern(track, message);
+                        input.value = '';
+                    }
+                });
+            });
+
+            // Chat input enter key
+            document.querySelectorAll('.track-chat-input').forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const track = input.dataset.track;
+                        const sendBtn = document.querySelector(`.track-chat-send[data-track="${track}"]`);
+                        sendBtn.click();
+                    }
                 });
             });
         });
